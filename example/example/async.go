@@ -3,14 +3,16 @@ package example
 import (
 	"context"
 	"fmt"
+
+	"github.com/linux019/signals"
 )
 
 func RunAsync() {
-
+	signal1 := signals.SignalType(1)
 	// Add a listener to the RecordCreatedAsync signal
 	RecordCreated.AddListener(func(ctx context.Context, record Record) {
 		fmt.Println("Record created:", record)
-	}, "key1") // <- Key is optional useful for removing the listener later
+	}, signal1) // <- Key is optional useful for removing the listener later
 
 	// Add a listener to the RecordUpdatedAsync signal
 	RecordUpdated.AddListener(func(ctx context.Context, record Record) {

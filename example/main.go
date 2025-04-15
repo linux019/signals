@@ -4,7 +4,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/maniartech/signals/example/example"
+	"github.com/linux019/signals/example/example"
 )
 
 func main() {

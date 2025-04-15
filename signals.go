@@ -18,7 +18,7 @@ type Signal[T any] interface {
 	//		// ...
 	//	})
 	//	signal.Emit(context.Background(), 42)
-	Emit(ctx context.Context, payload T)
+	Emit(ctx context.Context, payload T) error
 
 	// AddListener adds a listener to the signal.
 	//
@@ -35,7 +35,7 @@ type Signal[T any] interface {
 	//		// ...
 	//	})
 	//	fmt.Println("Number of subscribers after adding listener:", count)
-	AddListener(handler SignalListener[T], key ...string) int
+	AddListener(handler SignalListener[T], key ...SignalType) int
 
 	// RemoveListener removes a listener from the signal.
 	//
@@ -50,7 +50,7 @@ type Signal[T any] interface {
 	//	}, "key1")
 	//	count := signal.RemoveListener("key1")
 	//	fmt.Println("Number of subscribers after removing listener:", count)
-	RemoveListener(key string) int
+	RemoveListener(key SignalType) int
 
 	// Reset resets the signal by removing all subscribers from the signal,
 	// effectively clearing the list of subscribers.

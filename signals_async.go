@@ -15,7 +15,7 @@ import (
 type AsyncSignal[T any] struct {
 	BaseSignal[T]
 
-	mu sync.Mutex
+	mu sync.RWMutex
 }
 
 // Emit notifies all subscribers of the signal and passes the payload in a
@@ -38,7 +38,7 @@ type AsyncSignal[T any] struct {
 //	})
 //
 //	signal.Emit(context.Background(), "Hello, world!")
-func (s *AsyncSignal[T]) Emit(ctx context.Context, payload T) {
+func (s *AsyncSignal[T]) Emit(ctx context.Context, payload T) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -46,6 +46,10 @@ func (s *AsyncSignal[T]) Emit(ctx context.Context, payload T) {
 
 	for _, sub := range s.subscribers {
 		wg.Add(1)
+		if err := ctx.Err(); err != nil {
+			return err
+		}
+
 		go func(listener func(context.Context, T)) {
 			defer wg.Done()
 			listener(ctx, payload)
@@ -53,4 +57,6 @@ func (s *AsyncSignal[T]) Emit(ctx context.Context, payload T) {
 	}
 
 	wg.Wait()
+
+	return nil
 }

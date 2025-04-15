@@ -4,15 +4,17 @@ package signals
 // synchronously.
 //
 // Example:
-//  signal := signals.NewSync[int]()
-//  signal.AddListener(func(ctx context.Context, payload int) {
-//      // Listener implementation
-//      // ...
-//  })
-//  signal.Emit(context.Background(), 42)
+//
+//	signal := signals.NewSync[int]()
+//	signal.AddListener(func(ctx context.Context, payload int) {
+//	    // Listener implementation
+//	    // ...
+//	})
+//	signal.Emit(context.Background(), 42)
 func NewSync[T any]() Signal[T] {
 	s := &SyncSignal[T]{}
 	s.Reset()
+
 	return s
 }
 
@@ -20,14 +22,16 @@ func NewSync[T any]() Signal[T] {
 // asynchronously.
 //
 // Example:
-//  signal := signals.New[int]()
-//  signal.AddListener(func(ctx context.Context, payload int) {
-//      // Listener implementation
-//      // ...
-//  })
-//  signal.Emit(context.Background(), 42)
+//
+//	signal := signals.New[int]()
+//	signal.AddListener(func(ctx context.Context, payload int) {
+//	    // Listener implementation
+//	    // ...
+//	})
+//	signal.Emit(context.Background(), 42)
 func New[T any]() Signal[T] {
 	s := &AsyncSignal[T]{}
 	s.Reset() // Reset the signal
+
 	return s
 }
