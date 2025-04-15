@@ -4,8 +4,6 @@ The `signals` a robust, dependency-free go library that provides simple, thin, a
 
 💯 **100% test coverage** 💯
 
-⚠️ **Note:** This project is stable, production-ready and complete. It is used in production by [ManiarTech®️](https://maniartech.com) and other companies. Hence, we won't be adding any new features to this project. However, we will continue to maintain it by fixing bugs and keeping it up-to-date with the latest Go versions. We shall however, be adding new features when the need arises and / or requested by the community.
-
 [![GoReportCard example](https://goreportcard.com/badge/github.com/nanomsg/mangos)](https://goreportcard.com/report/github.com/maniartech/signals)
 [![<ManiarTech®️>](https://circleci.com/gh/maniartech/signals.svg?style=shield)](https://circleci.com/gh/maniartech/signals)
 [![made-with-Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg)](https://go.dev/)
@@ -25,7 +23,8 @@ package main
 import (
   "context"
   "fmt"
-  "github.com/maniartech/signals"
+  
+  "github.com/linux019/signals"
 )
 
 var RecordCreated = signals.New[Record]()
@@ -37,7 +36,7 @@ func main() {
   // Add a listener to the RecordCreated signal
   RecordCreated.AddListener(func(ctx context.Context, record Record) {
     fmt.Println("Record created:", record)
-  }, "key1") // <- Key is optional useful for removing the listener later
+  }, signals.SignalType(123)) // <- Key is optional useful for removing the listener later
 
   // Add a listener to the RecordUpdated signal
   RecordUpdated.AddListener(func(ctx context.Context, record Record) {
@@ -69,14 +68,3 @@ func main() {
 ## License
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-
-## ✨You Need Some Go Experts, Right? ✨
-
-As a software development firm, ManiarTech® specializes in Golang-based projects. Our team has an in-depth understanding of Enterprise Process Automation, Open Source, and SaaS. Also, we have extensive experience porting code from Python and Node.js to Golang. We have a team of Golang experts here at ManiarTech® that is well-versed in all aspects of the language and its ecosystem.
-At ManiarTech®, we have a team of Golang experts who are well-versed in all facets of the technology.
-
-In short, if you're looking for experts to assist you with Golang-related projects, don't hesitate to get in touch with us. Send an email to <contact@maniartech.com> to get in touch.
-
-## 👉🏼 Do you consider yourself an "Expert Golang Developer"? 👈🏼
-
-If so, you may be interested in the challenging and rewarding work that is waiting for you. Use <careers@maniartech.com> to submit your resume.
