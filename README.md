@@ -12,7 +12,7 @@ The `signals` a robust, dependency-free go library that provides simple, thin, a
 ## Installation
 
 ```bash
-go get github.com/maniartech/signals
+github.com/linux019/signals
 ```
 
 ## Usage
